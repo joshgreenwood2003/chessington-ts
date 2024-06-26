@@ -13,14 +13,11 @@ export default class Rook extends Piece {
         for(let i = 0;i<8;i++){
             if (i != currentSquare.row){
                 available.push(Square.at(i,currentSquare.col))
-            }     
-        }
-        for(let i = 0;i<8;i++){
+            }    
             if (i != currentSquare.col){
                 available.push(Square.at(currentSquare.row,i))
-            }     
+            }      
         }
-
         return available;
     }
 }
