@@ -21,7 +21,7 @@ export default class Piece {
     public reduceMoves(moves: Array<Square>){
         let newMoves = new Array();
         moves.forEach(move => {
-            if (move.col >= 0 && move.col <= 7 && move.row >= 0 && move.col <= 7){
+            if (move.col >= 0 && move.col <= 7 && move.row >= 0 && move.row <= 7){
                 newMoves.push(move)
             }
         });

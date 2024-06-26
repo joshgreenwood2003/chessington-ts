@@ -17,6 +17,9 @@ export default class Board {
     }
 
     public getPiece(square: Square) {
+        if (square.col > 7 || square.col <0 ||square.row > 7 || square.row < 0){
+            return undefined;
+        }
         return this.board[square.row][square.col];
     }
 
