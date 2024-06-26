@@ -20,6 +20,20 @@ export default class Knight extends Piece {
         available.push(Square.at(currentSquare.row+2,currentSquare.col+1))
         available.push(Square.at(currentSquare.row+2,currentSquare.col-1))
 
+        available = available.filter(space=>{
+
+            let piece = board.getPiece(space)
+            if (typeof piece === "undefined"){
+                return true;
+            }
+            else{
+                if(piece.player != this.player&& piece.constructor.name != "King"){
+                    return true;
+                }
+            }
+            return false;
+        })
+
         return this.reduceMoves(available);
     }
 }
