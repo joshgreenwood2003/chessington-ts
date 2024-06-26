@@ -23,6 +23,7 @@ export default class Pawn extends Piece {
             }
             available.push(Square.at(currentSquare.row-1,currentSquare.col))
         }
-        return available;
+        
+        return this.reduceMoves(available);
     }
 }

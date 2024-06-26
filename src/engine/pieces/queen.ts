@@ -30,19 +30,14 @@ export default class Queen extends Piece {
 
                 let d1pos = i-currentSquare.row+currentSquare.col;
                 let d2pos = currentSquare.row+currentSquare.col-i;
-                if(d1pos >= 0 && d1pos <= 7){
-                    available.push(Square.at(i,d1pos))
-                }
-                if (d2pos >= 0 && d2pos <= 7){
-                    available.push(Square.at(i,d2pos))
-                }
-
+                available.push(Square.at(i,d1pos))
+                available.push(Square.at(i,d2pos))
             }    
             if (i != currentSquare.col){
                 available.push(Square.at(currentSquare.row,i))
             }    
    
         }
-        return available;
+        return this.reduceMoves(available);
     }
 }

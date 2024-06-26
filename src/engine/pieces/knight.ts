@@ -1,13 +1,25 @@
 import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
-
+import Square from '../square';
 export default class Knight extends Piece {
     public constructor(player: Player) {
         super(player);
     }
 
     public getAvailableMoves(board: Board) {
-        return new Array(0);
+        let available = new Array();
+        const currentSquare = board.findPiece(this);
+        
+        available.push(Square.at(currentSquare.row-1,currentSquare.col+2))
+        available.push(Square.at(currentSquare.row-1,currentSquare.col-2))
+        available.push(Square.at(currentSquare.row+1,currentSquare.col+2))
+        available.push(Square.at(currentSquare.row+1,currentSquare.col-2))
+        available.push(Square.at(currentSquare.row-2,currentSquare.col+1))
+        available.push(Square.at(currentSquare.row-2,currentSquare.col-1))
+        available.push(Square.at(currentSquare.row+2,currentSquare.col+1))
+        available.push(Square.at(currentSquare.row+2,currentSquare.col-1))
+
+        return this.reduceMoves(available);
     }
 }
