@@ -4,7 +4,6 @@ import Player from '../../../src/engine/player';
 import Square from '../../../src/engine/square';
 import Rook from '../../../src/engine/pieces/rook';
 import King from '../../../src/engine/pieces/king';
-
 describe('Pawn', () => {
 
     let board: Board;
@@ -83,6 +82,20 @@ describe('Pawn', () => {
 
             moves.should.not.deep.include(Square.at(5, 3));
         });
+
+
+
+        it('can en passant', () => {
+            const blackPawn = new Pawn(Player.BLACK);
+            const whitePawn = new Pawn(Player.WHITE);
+
+            board.setPiece(Square.at(4, 3), blackPawn);
+            board.setPiece(Square.at(4, 4), whitePawn);
+            blackPawn.enPassantable = true
+            const moves = whitePawn.getAvailableMoves(board);
+            moves.should.deep.include(Square.at(5,3));
+        });
+
     });
 
     describe('black pawns', () => {
@@ -160,6 +173,16 @@ describe('Pawn', () => {
             const moves = pawn.getAvailableMoves(board);
 
             moves.should.not.deep.include(Square.at(3, 3));
+        });
+        it('can en passant', () => {
+            const blackPawn = new Pawn(Player.BLACK);
+            const whitePawn = new Pawn(Player.WHITE);
+
+            board.setPiece(Square.at(3, 3), blackPawn);
+            board.setPiece(Square.at(3, 4), whitePawn);
+            whitePawn.enPassantable = true
+            const moves = blackPawn.getAvailableMoves(board);
+            moves.should.deep.include(Square.at(2,4));
         });
     });
 

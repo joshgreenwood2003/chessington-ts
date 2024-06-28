@@ -23,11 +23,11 @@ export default class King extends Piece {
         available = available.filter(space=>{
 
             let piece = board.getPiece(space)
-            if (typeof piece === "undefined"){
+            if (!piece){
                 return true;
             }
             else{
-                if(piece.player != this.player&& piece.constructor.name != "King"){
+                if(piece.player != this.player&& !(piece instanceof King)){
                     return true;
                 }
             }

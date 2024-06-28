@@ -42,7 +42,7 @@ export default class Piece {
         for(let i = currentSquare.col - 1; i >= 0; i--){
             if (!blocked){
                 let piece = board.getPiece(Square.at(currentSquare.row,i))
-                if (typeof piece === "undefined"){
+                if (!piece){
                     available.push(Square.at(currentSquare.row,i));
                 }
                 else{
@@ -59,7 +59,7 @@ export default class Piece {
         for(let i = currentSquare.col +1; i <=7 ; i++){
             if (!blocked){
                 let piece = board.getPiece(Square.at(currentSquare.row,i))
-                if (typeof piece === "undefined"){
+                if (!piece){
                     available.push(Square.at(currentSquare.row,i));
                 }
                 else{
@@ -78,11 +78,11 @@ export default class Piece {
         for(let i = currentSquare.row - 1; i >= 0; i--){
             if (!blocked){
                 let piece = board.getPiece(Square.at(i,currentSquare.col))
-                if (typeof piece === "undefined"){
+                if (!piece){
                     available.push(Square.at(i,currentSquare.col));
                 }
                 else{
-                    if(piece.player != this.player&& piece.constructor.name != "King"){
+                    if(piece.player != this.player&&piece.constructor.name != "King"){
                         available.push(Square.at(i,currentSquare.col)); 
                     }
                     blocked = true;
@@ -95,7 +95,7 @@ export default class Piece {
         for(let i = currentSquare.row +1; i <=7 ; i++){
             if (!blocked){
                 let piece = board.getPiece(Square.at(i,currentSquare.col))
-                if (typeof piece === "undefined"){
+                if (!piece){
                     available.push(Square.at(i,currentSquare.col));
                 }
                 else{
@@ -129,7 +129,7 @@ export default class Piece {
                 if (blockNE == false) {
 
                     let piece = board.getPiece(possibleSquare)
-                    if (typeof piece === "undefined") {
+                    if (!piece) {
                         available.push(possibleSquare);
                     }
                     else {
@@ -142,7 +142,7 @@ export default class Piece {
                 }
                 if (blockNW == false) {
                     let piece = board.getPiece(possibleSquare2)
-                    if (typeof piece === "undefined") {
+                    if (!piece) {
                         available.push(possibleSquare2);
                     }
                     else {
@@ -165,7 +165,7 @@ export default class Piece {
                 let possibleSquare2 = Square.at(row, d2pos)
                 if (blockSW == false) {
                     let piece = board.getPiece(possibleSquare)
-                    if (typeof piece === "undefined") {
+                    if (!piece) {
                         available.push(possibleSquare);
                     }
                     else {
@@ -178,7 +178,7 @@ export default class Piece {
                 }
                 if (blockSE == false) {
                     let piece = board.getPiece(possibleSquare2)
-                    if (typeof piece === "undefined") {
+                    if (!piece) {
                         available.push(possibleSquare2);
                     }
                     else {

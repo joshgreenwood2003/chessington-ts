@@ -123,3 +123,19 @@ export function createChessBoard() {
     );
     updateStatus();
 }
+
+
+export function updateChessBoard(board) {
+    boardUI = ChessBoard(
+        'chess-board', 
+        {
+            showNotation: false,
+            draggable: true,
+            position: boardToPositionObject(board),
+            onDragStart: onDragStart,
+            onDrop: onDrop
+        }
+    );
+    updateStatus();
+}
+

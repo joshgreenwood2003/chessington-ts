@@ -2,6 +2,7 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from '../square';
+import King from './king';
 export default class Knight extends Piece {
     public constructor(player: Player) {
         super(player);
@@ -21,13 +22,12 @@ export default class Knight extends Piece {
         available.push(Square.at(currentSquare.row+2,currentSquare.col-1))
 
         available = available.filter(space=>{
-
             let piece = board.getPiece(space)
-            if (typeof piece === "undefined"){
+            if (!piece){
                 return true;
             }
             else{
-                if(piece.player != this.player&& piece.constructor.name != "King"){
+                if(piece.player != this.player&& !(piece instanceof King)){
                     return true;
                 }
             }
