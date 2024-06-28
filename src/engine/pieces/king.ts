@@ -10,31 +10,18 @@ export default class King extends Piece {
     public getAvailableMoves(board: Board) {
         let available = new Array();
         const currentSquare = board.findPiece(this);
-        
-        available.push(Square.at(currentSquare.row-1,currentSquare.col+1))
-        available.push(Square.at(currentSquare.row-1,currentSquare.col-1))
-        available.push(Square.at(currentSquare.row-1,currentSquare.col))
-        available.push(Square.at(currentSquare.row+1,currentSquare.col+1))
-        available.push(Square.at(currentSquare.row+1,currentSquare.col-1))
-        available.push(Square.at(currentSquare.row+1,currentSquare.col))
-        available.push(Square.at(currentSquare.row,currentSquare.col+1))
-        available.push(Square.at(currentSquare.row,currentSquare.col-1))
+        const currentRow = currentSquare.row;
+        const currentCol = currentSquare.col;
 
-        available = available.filter(space=>{
+        available.push(new Square(currentRow - 1, currentCol + 1));
+        available.push(new Square(currentRow - 1, currentCol - 1));
+        available.push(new Square(currentRow - 1, currentCol));
+        available.push(new Square(currentRow + 1, currentCol + 1));
+        available.push(new Square(currentRow + 1, currentCol - 1));
+        available.push(new Square(currentRow + 1, currentCol));
+        available.push(new Square(currentRow, currentCol + 1));
+        available.push(new Square(currentRow, currentCol - 1));
 
-            let piece = board.getPiece(space)
-            if (!piece){
-                return true;
-            }
-            else{
-                if(piece.player != this.player&& !(piece instanceof King)){
-                    return true;
-                }
-            }
-            return false;
-        })
-
-
-        return this.reduceMoves(available);
+        return this.reduceMoves(board, available);
     }
 }

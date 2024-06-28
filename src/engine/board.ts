@@ -8,9 +8,17 @@ import { updateChessBoard } from '../frontend/js/chessington';
 export default class Board {
     public currentPlayer: Player;
     private readonly board: (Piece | undefined)[][];
+    public CastleQsW;
+    public CastleKsW;
+    public CastleQsB;
+    public CastleKsB;
     public constructor(currentPlayer?: Player) {
         this.currentPlayer = currentPlayer ? currentPlayer : Player.WHITE;
         this.board = this.createBoard();
+        this.CastleKsB = true;
+        this.CastleKsW = true;
+        this.CastleQsB = true;
+        this.CastleQsW = true;
     }
 
     public setPiece(square: Square, piece: Piece | undefined) {
@@ -70,6 +78,26 @@ export default class Board {
                
             }
 
+            if(fromSquare.col == 0 && fromSquare.row == 0){
+                this.CastleQsW = false;
+            }
+            if(fromSquare.col == 7 && fromSquare.row == 0){
+                this.CastleKsW = false;
+            }
+            if(fromSquare.col == 0 && fromSquare.row == 7){
+                this.CastleQsB = false;
+            }
+            if(fromSquare.col == 7 && fromSquare.row == 7){
+                this.CastleKsB = false;
+            }
+            if(fromSquare.col == 4 && fromSquare.row == 7){
+                this.CastleKsB = false;
+                this.CastleQsB = false;
+            }
+            if(fromSquare.col == 4 && fromSquare.row == 0){
+                this.CastleKsW = false;
+                this.CastleQsW = false;
+            }
 
 
 

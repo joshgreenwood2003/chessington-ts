@@ -18,14 +18,18 @@ export default class Piece {
         board.movePiece(currentSquare, newSquare);
     }
 
-    public reduceMoves(moves: Array<Square>){
-        let newMoves = new Array();
-        moves.forEach(move => {
-            if (move.col >= 0 && move.col <= 7 && move.row >= 0 && move.row <= 7){
-                newMoves.push(move)
-            }
-        });
-        return newMoves
+    public reduceMoves(board: Board, moves: Array<Square>) {
+
+        moves = moves.filter(move => {
+            return (move.col >= 0 && move.col <= 7 && move.row >= 0 && move.row <= 7);
+        })
+
+        moves = moves.filter(space => {
+            let piece = board.getPiece(space)
+            return (!piece || (piece.player != this.player && piece.constructor.name != "King"))
+        })
+
+        return moves
     }
 
 
@@ -39,15 +43,15 @@ export default class Piece {
         const currentSquare = board.findPiece(this);
 
         let blocked = false;
-        for(let i = currentSquare.col - 1; i >= 0; i--){
-            if (!blocked){
-                let piece = board.getPiece(Square.at(currentSquare.row,i))
-                if (!piece){
-                    available.push(Square.at(currentSquare.row,i));
+        for (let i = currentSquare.col - 1; i >= 0; i--) {
+            if (!blocked) {
+                let piece = board.getPiece(Square.at(currentSquare.row, i))
+                if (!piece) {
+                    available.push(Square.at(currentSquare.row, i));
                 }
-                else{
-                    if(piece.player != this.player&& piece.constructor.name != "King"){
-                        available.push(Square.at(currentSquare.row,i)); 
+                else {
+                    if (piece.player != this.player && piece.constructor.name != "King") {
+                        available.push(Square.at(currentSquare.row, i));
                     }
                     blocked = true;
                 }
@@ -56,15 +60,15 @@ export default class Piece {
 
         }
         blocked = false;
-        for(let i = currentSquare.col +1; i <=7 ; i++){
-            if (!blocked){
-                let piece = board.getPiece(Square.at(currentSquare.row,i))
-                if (!piece){
-                    available.push(Square.at(currentSquare.row,i));
+        for (let i = currentSquare.col + 1; i <= 7; i++) {
+            if (!blocked) {
+                let piece = board.getPiece(Square.at(currentSquare.row, i))
+                if (!piece) {
+                    available.push(Square.at(currentSquare.row, i));
                 }
-                else{
-                    if(piece.player != this.player&& piece.constructor.name != "King"){
-                        available.push(Square.at(currentSquare.row,i)); 
+                else {
+                    if (piece.player != this.player && piece.constructor.name != "King") {
+                        available.push(Square.at(currentSquare.row, i));
                     }
                     blocked = true;
                 }
@@ -75,15 +79,15 @@ export default class Piece {
 
 
         blocked = false;
-        for(let i = currentSquare.row - 1; i >= 0; i--){
-            if (!blocked){
-                let piece = board.getPiece(Square.at(i,currentSquare.col))
-                if (!piece){
-                    available.push(Square.at(i,currentSquare.col));
+        for (let i = currentSquare.row - 1; i >= 0; i--) {
+            if (!blocked) {
+                let piece = board.getPiece(Square.at(i, currentSquare.col))
+                if (!piece) {
+                    available.push(Square.at(i, currentSquare.col));
                 }
-                else{
-                    if(piece.player != this.player&&piece.constructor.name != "King"){
-                        available.push(Square.at(i,currentSquare.col)); 
+                else {
+                    if (piece.player != this.player && piece.constructor.name != "King") {
+                        available.push(Square.at(i, currentSquare.col));
                     }
                     blocked = true;
                 }
@@ -92,15 +96,15 @@ export default class Piece {
 
         }
         blocked = false;
-        for(let i = currentSquare.row +1; i <=7 ; i++){
-            if (!blocked){
-                let piece = board.getPiece(Square.at(i,currentSquare.col))
-                if (!piece){
-                    available.push(Square.at(i,currentSquare.col));
+        for (let i = currentSquare.row + 1; i <= 7; i++) {
+            if (!blocked) {
+                let piece = board.getPiece(Square.at(i, currentSquare.col))
+                if (!piece) {
+                    available.push(Square.at(i, currentSquare.col));
                 }
-                else{
-                    if(piece.player != this.player && piece.constructor.name != "King"){
-                        available.push(Square.at(i,currentSquare.col)); 
+                else {
+                    if (piece.player != this.player && piece.constructor.name != "King") {
+                        available.push(Square.at(i, currentSquare.col));
                     }
                     blocked = true;
                 }
@@ -108,7 +112,7 @@ export default class Piece {
             }
 
         }
-      
+
         return available;
     }
 
@@ -190,7 +194,7 @@ export default class Piece {
                 }
             }
         }
-        available = this.reduceMoves(available)
+        available = this.reduceMoves(board, available)
         return available;
     }
 

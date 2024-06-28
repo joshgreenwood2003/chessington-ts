@@ -8,6 +8,6 @@ export default class Rook extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-      return this.getVerticalMoves(board)
+      return this.getVerticalMoves(board);
     }
 }

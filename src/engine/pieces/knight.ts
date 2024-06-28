@@ -2,7 +2,6 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from '../square';
-import King from './king';
 export default class Knight extends Piece {
     public constructor(player: Player) {
         super(player);
@@ -11,29 +10,18 @@ export default class Knight extends Piece {
     public getAvailableMoves(board: Board) {
         let available = new Array();
         const currentSquare = board.findPiece(this);
-        
-        available.push(Square.at(currentSquare.row-1,currentSquare.col+2))
-        available.push(Square.at(currentSquare.row-1,currentSquare.col-2))
-        available.push(Square.at(currentSquare.row+1,currentSquare.col+2))
-        available.push(Square.at(currentSquare.row+1,currentSquare.col-2))
-        available.push(Square.at(currentSquare.row-2,currentSquare.col+1))
-        available.push(Square.at(currentSquare.row-2,currentSquare.col-1))
-        available.push(Square.at(currentSquare.row+2,currentSquare.col+1))
-        available.push(Square.at(currentSquare.row+2,currentSquare.col-1))
+        const currentRow = currentSquare.row;
+        const currentCol = currentSquare.col;
 
-        available = available.filter(space=>{
-            let piece = board.getPiece(space)
-            if (!piece){
-                return true;
-            }
-            else{
-                if(piece.player != this.player&& !(piece instanceof King)){
-                    return true;
-                }
-            }
-            return false;
-        })
+        available.push(new Square(currentRow - 1, currentCol + 2));
+        available.push(new Square(currentRow - 1, currentCol - 2));
+        available.push(new Square(currentRow + 1, currentCol + 2));
+        available.push(new Square(currentRow + 1, currentCol - 2));
+        available.push(new Square(currentRow - 2, currentCol + 1));
+        available.push(new Square(currentRow - 2, currentCol - 1));
+        available.push(new Square(currentRow + 2, currentCol + 1));
+        available.push(new Square(currentRow + 2, currentCol - 1));
 
-        return this.reduceMoves(available);
+        return this.reduceMoves(board, available);
     }
 }

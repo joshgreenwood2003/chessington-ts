@@ -8,10 +8,7 @@ export default class Queen extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-
-        let available= this.getDiagonalMoves(board)
-        available = available.concat(this.getVerticalMoves(board))
-        return available;
-      
+        let available= this.getDiagonalMoves(board);
+        return available.concat(this.getVerticalMoves(board));
     }
 }

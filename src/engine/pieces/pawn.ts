@@ -17,32 +17,32 @@ export default class Pawn extends Piece {
         let secondNextSquare: Square;
         let diagNext1: Square;
         let diagNext2: Square;
-        let leftside: Square = Square.at(currentSquare.row,currentSquare.col -1);
-        let rightside:Square = Square.at(currentSquare.row,currentSquare.col + 1);
+        let leftside: Square = Square.at(currentSquare.row, currentSquare.col - 1);
+        let rightside: Square = Square.at(currentSquare.row, currentSquare.col + 1);
         let startingFile: Number;
 
         // Determine relative positions based on the pawn colour
         if (this.player == Player.WHITE) {
-            nextSquare = Square.at(currentSquare.row + 1, currentSquare.col)
-            secondNextSquare = Square.at(currentSquare.row + 2, currentSquare.col)
-            diagNext1 = Square.at(currentSquare.row + 1, currentSquare.col - 1)
-            diagNext2 = Square.at(currentSquare.row + 1, currentSquare.col + 1)
+            nextSquare = Square.at(currentSquare.row + 1, currentSquare.col);
+            secondNextSquare = Square.at(currentSquare.row + 2, currentSquare.col);
+            diagNext1 = Square.at(currentSquare.row + 1, currentSquare.col - 1);
+            diagNext2 = Square.at(currentSquare.row + 1, currentSquare.col + 1);
             startingFile = 1
         }
         else {
-            nextSquare = Square.at(currentSquare.row - 1, currentSquare.col)
-            secondNextSquare = Square.at(currentSquare.row - 2, currentSquare.col)
-            diagNext1 = Square.at(currentSquare.row - 1, currentSquare.col - 1)
-            diagNext2 = Square.at(currentSquare.row - 1, currentSquare.col + 1)
+            nextSquare = Square.at(currentSquare.row - 1, currentSquare.col);
+            secondNextSquare = Square.at(currentSquare.row - 2, currentSquare.col);
+            diagNext1 = Square.at(currentSquare.row - 1, currentSquare.col - 1);
+            diagNext2 = Square.at(currentSquare.row - 1, currentSquare.col + 1);
             startingFile = 6
         }
 
 
         // Move 1 square forward, or two
-        if(!board.getPiece(nextSquare)){
-            available.push(nextSquare)
-            if (currentSquare.row == startingFile&& !board.getPiece(secondNextSquare)) {
-                available.push(secondNextSquare)
+        if (!board.getPiece(nextSquare)) {
+            available.push(nextSquare);
+            if (currentSquare.row == startingFile && !board.getPiece(secondNextSquare)) {
+                available.push(secondNextSquare);
             }
         }
 
@@ -68,8 +68,8 @@ export default class Pawn extends Piece {
         piece = board.getPiece(leftside)
         if (!!piece) {
             if (piece.player != this.player && (piece instanceof Pawn)) {
-                if(piece.enPassantable){
-                    available.push(diagNext1)
+                if (piece.enPassantable) {
+                    available.push(diagNext1);
                 }
             }
         }
@@ -78,8 +78,8 @@ export default class Pawn extends Piece {
         piece = board.getPiece(rightside)
         if (!!piece) {
             if (piece.player != this.player && (piece instanceof Pawn)) {
-                if(piece.enPassantable){
-                    available.push(diagNext2)
+                if (piece.enPassantable) {
+                    available.push(diagNext2);
                 }
             }
         }
@@ -93,6 +93,6 @@ export default class Pawn extends Piece {
 
 
 
-        return this.reduceMoves(available);
+        return this.reduceMoves(board, available);
     }
 }
