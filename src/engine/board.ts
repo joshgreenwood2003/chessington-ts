@@ -48,19 +48,7 @@ export default class Board {
         if (!!movingPiece && movingPiece.player === this.currentPlayer) {
             this.setPiece(toSquare, movingPiece);
             this.setPiece(fromSquare, undefined);
-
-            if (movingPiece instanceof Pawn){
-                let possiblecapture = this.getPiece(new Square(fromSquare.row,toSquare.col))
-                if(possiblecapture instanceof Pawn){
-                    console.log("Found pawn in right place")
-                    if (possiblecapture.enPassantable){
-                        
-                        this.setPiece(Square.at(fromSquare.row,toSquare.col),undefined);
-                        updateChessBoard();
-                    }
-                }    
-            }
-           
+            movingPiece.pieceCallback(this,toSquare,fromSquare);   
             this.board.forEach(row => {
                 row.forEach(piece=>{
                     if(!!piece){
@@ -77,29 +65,6 @@ export default class Board {
                 }
                
             }
-
-            if(fromSquare.col == 0 && fromSquare.row == 0){
-                this.CastleQsW = false;
-            }
-            if(fromSquare.col == 7 && fromSquare.row == 0){
-                this.CastleKsW = false;
-            }
-            if(fromSquare.col == 0 && fromSquare.row == 7){
-                this.CastleQsB = false;
-            }
-            if(fromSquare.col == 7 && fromSquare.row == 7){
-                this.CastleKsB = false;
-            }
-            if(fromSquare.col == 4 && fromSquare.row == 7){
-                this.CastleKsB = false;
-                this.CastleQsB = false;
-            }
-            if(fromSquare.col == 4 && fromSquare.row == 0){
-                this.CastleKsW = false;
-                this.CastleQsW = false;
-            }
-
-
 
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
             

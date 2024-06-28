@@ -6,7 +6,19 @@ export default class King extends Piece {
     public constructor(player: Player) {
         super(player);
     }
+    public pieceCallback(board:Board,toSquare: Square,fromSquare:Square): void {
 
+        if (this.player === Player.BLACK){
+            board.CastleKsB = false;
+            board.CastleQsB = false;
+        }
+        else {
+            board.CastleKsW = false;
+            board.CastleQsW = false;
+        }
+        return;
+          
+    }
     public getAvailableMoves(board: Board) {
         let available = new Array();
         const currentSquare = board.findPiece(this);

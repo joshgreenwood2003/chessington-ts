@@ -6,7 +6,9 @@ export default class Knight extends Piece {
     public constructor(player: Player) {
         super(player);
     }
-
+public pieceCallback(board:Board,toSquare: Square,fromSquare:Square): void {
+    return;
+}
     public getAvailableMoves(board: Board) {
         let available = new Array();
         const currentSquare = board.findPiece(this);

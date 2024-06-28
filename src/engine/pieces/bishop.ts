@@ -7,6 +7,9 @@ export default class Bishop extends Piece {
     public constructor(player: Player) {
         super(player);
     }
+    public pieceCallback(board:Board,toSquare: Square,fromSquare:Square): void {
+        return;
+    }
 
     public getAvailableMoves(board: Board) {
         return this.getDiagonalMoves(board);

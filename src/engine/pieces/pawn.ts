@@ -3,6 +3,7 @@ import Player from '../player';
 import Board from '../board';
 import Square from '../square';
 import King from './king';
+import { updateChessBoard } from '../../frontend/js/chessington';
 export default class Pawn extends Piece {
     public enPassantable;
     public constructor(player: Player) {
@@ -94,5 +95,15 @@ export default class Pawn extends Piece {
 
 
         return this.reduceMoves(board, available);
+    }
+    public pieceCallback(board:Board,toSquare: Square,fromSquare:Square): void {
+        let possiblecapture = board.getPiece(new Square(fromSquare.row,toSquare.col)) 
+        if(possiblecapture instanceof Pawn){
+           if (possiblecapture.enPassantable){   
+                board.setPiece(Square.at(fromSquare.row,toSquare.col),undefined);
+                updateChessBoard();
+           }
+       }  
+       return;
     }
 }
